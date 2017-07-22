@@ -20,7 +20,7 @@ node {
     withEnv(["GOROOT=${go_root}", "GOPATH=${WORKSPACE}", "GOBIN=${WORKSPACE}/bin", "PATH+GO=${go_root}/bin:${WORKSPACE}/bin"]){
 
       stage('Checkout'){
-        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: goSrc]], submoduleCfg: [], userRemoteConfigs: [[url: caddyScm]]]
+        checkout changelog: true, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: goSrc]], submoduleCfg: [], userRemoteConfigs: [[url: caddyScm]]]
       }
 
       stage('AddHugo'){
@@ -81,7 +81,7 @@ done
       }
 
       stage('Package') {
-        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'deploy']], submoduleCfg: [], userRemoteConfigs: [[url: scm]]]
+        checkout changelog: true, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'deploy']], submoduleCfg: [], userRemoteConfigs: [[url: scm]]]
 
         dir('deploy/codedeploy'){
           writeFile file: 'version', text: 'Caddy With Hugo. \n\nVersion: ' + buildNumber + '\n\nBuild Time: ' + new Date()
