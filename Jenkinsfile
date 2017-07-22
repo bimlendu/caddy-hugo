@@ -1,3 +1,5 @@
+#!groovy
+
 @Library("sharedLibs") _
 
 node {
