@@ -13,7 +13,7 @@ node {
     String go_root = tool name: 'GO_1.8.3', type: 'go'
     String sonarqubeScannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     String deployBucket = 'alpha-caddy-deploy'
-    String deployAppName = 'alpha-codedeployapp'
+    String deployAppName = 'alpha-code-deploy-app'
     String deployGroupName = 'alpha-deploy-group'
 
     String statusPage_pageID = 'b1yh4zryjdsf'
