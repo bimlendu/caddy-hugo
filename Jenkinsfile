@@ -9,11 +9,11 @@ node {
     String prj = "github.com/mholt/caddy"
     String goSrc = "src/" + prj
 
-    String go_root = tool name: 'GO_1_8_3', type: 'go'
+    String go_root = tool name: 'GO_1.8.3', type: 'go'
     String sonarqubeScannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-    String deployBucket = 'grasshopper-caddy-binaries'
-    String deployAppName = 'caddy'
-    String deployGroupName = 'caddyAllAtOnce'
+    String deployBucket = 'alpha-caddy-deploy'
+    String deployAppName = 'alpha-codedeployapp'
+    String deployGroupName = 'alpha-deploy-group'
 
     String statusPage_pageID = 'b1yh4zryjdsf'
     String statusPage_APIEndpoint = 'https://api.statuspage.io/v1/'
