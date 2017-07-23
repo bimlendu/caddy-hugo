@@ -3,10 +3,10 @@ os: linux
 files:
   - source: caddy
     destination: /usr/local/bin/
-  - source: version
+  - source: info
     destination: /var/www/public/
 permissions:
-  - object: /var/www/public/version
+  - object: /var/www/public/info
     owner: www-data
     group: www-data
     mode: 0644

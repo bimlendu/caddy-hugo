@@ -87,7 +87,7 @@ done
         checkout changelog: true, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'deploy']], submoduleCfg: [], userRemoteConfigs: [[url: deployscm]]]
 
         dir('deploy/codedeploy'){
-          writeFile file: 'version', text: 'Caddy With Hugo. \n\nVersion: ' + buildNumber + '\n\nBuild Time: ' + new Date()
+          writeFile file: 'info', text: 'Caddy With Hugo. \n\nVersion: ' + buildNumber + '\n\nBuild Time: ' + new Date()
           _sh 'mv ../../release/caddy .'
           _sh 'rm -rf *.zip && zip -r caddy-' + buildNumber + '.zip .' 
           s3Upload(file:'caddy-' + buildNumber + '.zip', bucket:deployBucket, path:'caddy-' + buildNumber + '.zip' )

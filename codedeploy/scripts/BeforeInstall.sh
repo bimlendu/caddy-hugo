@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 rm -f /usr/local/bin/caddy
-rm -f /var/www/public/version
+rm -f /var/www/public/info
