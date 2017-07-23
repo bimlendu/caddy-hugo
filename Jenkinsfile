@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("sharedLibs") _
+@Library("mySharedLibs") _
 
 node {
   timestamps {
