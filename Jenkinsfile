@@ -10,7 +10,7 @@ node {
     String goSrc = "src/" + prj
 
     String go_root = tool name: 'GO_1.8.3', type: 'go'
-    String sonarqubeScannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+    String sonarqubeScannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     String deployBucket = 'alpha-caddy-deploy'
     String deployAppName = 'alpha-codedeployapp'
     String deployGroupName = 'alpha-deploy-group'
