@@ -95,7 +95,7 @@ done
 
       stage('Deploy') {
         withCredentials([
-          usernamePassword(credentialsId: 'smsAuth', passwordVariable: 'auth_key', usernameVariable: 'auth_id'),
+          usernamePassword(credentialsId: 'msg_provider', passwordVariable: 'auth_key', usernameVariable: 'auth_id'),
           string(credentialsId: 'statusPageAPIKey', variable: 'statuspage_api_key'),
           string(credentialsId: 'srcPhone', variable: 'srcPhone'),
           string(credentialsId: 'destPhone', variable: 'destPhone')]
@@ -105,7 +105,7 @@ done
 
             String _inc = createStatusPageInc(statusPage_APIEndpoint, statuspage_api_key, statuspage_ComponentID, statusPage_pageID, startDeployMsg, incName)
           
-            sendSMS('smsAuth', auth_id, srcPhone, destPhone, incName)
+            sendSMS('msg_provider', auth_id, srcPhone, destPhone, incName)
       
             codeDeploy(deployAppName, deployGroupName, deployBucket, 'caddy-' + buildNumber + '.zip', 15)
             
@@ -113,7 +113,7 @@ done
             
             resolveStatusPageInc(statusPage_APIEndpoint, statuspage_api_key, statuspage_ComponentID, statusPage_pageID, _inc, postDeployMsg)
 
-            sendSMS('smsAuth', auth_id, srcPhone, destPhone, postDeployMsg)
+            sendSMS('msg_provider', auth_id, srcPhone, destPhone, postDeployMsg)
           }
       }
     }
