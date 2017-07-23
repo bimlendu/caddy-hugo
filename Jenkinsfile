@@ -6,6 +6,7 @@ node {
   timestamps {
     String buildNumber = "0.0.1-b${env.BUILD_NUMBER}"
     String caddyScm = "https://github.com/mholt/caddy.git"
+    String deployscm = "https://github.com/bimlendu/caddy-hugo.git"
     String prj = "github.com/mholt/caddy"
     String goSrc = "src/" + prj
 
@@ -83,7 +84,7 @@ done
       }
 
       stage('Package') {
-        checkout changelog: true, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'deploy']], submoduleCfg: [], userRemoteConfigs: [[url: scm]]]
+        checkout changelog: true, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'deploy']], submoduleCfg: [], userRemoteConfigs: [[url: deployscm]]]
 
         dir('deploy/codedeploy'){
           writeFile file: 'version', text: 'Caddy With Hugo. \n\nVersion: ' + buildNumber + '\n\nBuild Time: ' + new Date()
