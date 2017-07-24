@@ -35,7 +35,7 @@ node {
         _sh 'go get -u -v gopkg.in/alecthomas/gometalinter.v1 github.com/axw/gocov/... github.com/AlekSi/gocov-xml github.com/jstemmer/go-junit-report github.com/360EntSecGroup-Skylar/goreporter'
       }
 
-      stage('ParallelTests'){
+      stage('QA'){
         parallel(
           Coverage: {
             _sh '''
