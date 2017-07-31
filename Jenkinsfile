@@ -35,45 +35,45 @@ node {
         _sh 'go get -u -v gopkg.in/alecthomas/gometalinter.v1 github.com/axw/gocov/... github.com/AlekSi/gocov-xml github.com/jstemmer/go-junit-report github.com/360EntSecGroup-Skylar/goreporter'
       }
 
-      stage('QA'){
-        parallel(
-          Coverage: {
-            _sh '''
-for pkg in $(go list github.com/mholt/caddy/... | grep -v /vendor/ );
-do
-  echo "testing... $pkg"
-  go test -coverprofile=src/$pkg/cover.out $pkg
-  gocov convert src/$pkg/cover.out | gocov-xml > src/$pkg/coverage.xml
-done
-'''
-          },
-          Lint: {
-            _sh 'gometalinter.v1 --install'
-            _sh 'gometalinter.v1 --disable-all --enable=errcheck --enable=vet --checkstyle --deadline 5m ' + goSrc + ' > report.xml || true'
-          },
-          UnitTests: {
-            _sh 'go test -v 2>&1 | go-junit-report > test.xml'
-            junit allowEmptyResults: true, testResults: 'test.xml'
-          }
-        )
-      }
+//       stage('QA'){
+//         parallel(
+//           Coverage: {
+//             _sh '''
+// for pkg in $(go list github.com/mholt/caddy/... | grep -v /vendor/ );
+// do
+//   echo "testing... $pkg"
+//   go test -coverprofile=src/$pkg/cover.out $pkg
+//   gocov convert src/$pkg/cover.out | gocov-xml > src/$pkg/coverage.xml
+// done
+// '''
+//           },
+//           Lint: {
+//             _sh 'gometalinter.v1 --install'
+//             _sh 'gometalinter.v1 --disable-all --enable=errcheck --enable=vet --checkstyle --deadline 5m ' + goSrc + ' > report.xml || true'
+//           },
+//           UnitTests: {
+//             _sh 'go test -v 2>&1 | go-junit-report > test.xml'
+//             junit allowEmptyResults: true, testResults: 'test.xml'
+//           }
+//         )
+//       }
 
-      stage('Sonar'){
-        withSonarQubeEnv('Sonar') { 
-          _sh sonarqubeScannerHome + '/bin/sonar-scanner ' + 
-          '-Dsonar.projectKey=caddy-hugo ' +
-          '-Dsonar.projectName=caddy-hugo ' +
-          '-Dsonar.projectVersion=' + buildNumber + ' ' +
-          '-Dsonar.golint.reportPath=report.xml ' +
-          '-Dsonar.coverage.reportPath=coverage.xml ' +
-          '-Dsonar.coverage.dtdVerification=true ' +
-          '-Dsonar.test.reportPath=test.xml ' +
-          '-Dsonar.sources=./' + goSrc + ' ' + 
-          '-Dsonar.exclusions=vendor/**,.git/**,**/*test.go,**/*.xml ' + 
-          '-Dsonar.showProfiling=true ' +
-          '-Dsonar.test.exclusions=**/*test.go'
-        }
-      }
+//       stage('Sonar'){
+//         withSonarQubeEnv('Sonar') { 
+//           _sh sonarqubeScannerHome + '/bin/sonar-scanner ' + 
+//           '-Dsonar.projectKey=caddy-hugo ' +
+//           '-Dsonar.projectName=caddy-hugo ' +
+//           '-Dsonar.projectVersion=' + buildNumber + ' ' +
+//           '-Dsonar.golint.reportPath=report.xml ' +
+//           '-Dsonar.coverage.reportPath=coverage.xml ' +
+//           '-Dsonar.coverage.dtdVerification=true ' +
+//           '-Dsonar.test.reportPath=test.xml ' +
+//           '-Dsonar.sources=./' + goSrc + ' ' + 
+//           '-Dsonar.exclusions=vendor/**,.git/**,**/*test.go,**/*.xml ' + 
+//           '-Dsonar.showProfiling=true ' +
+//           '-Dsonar.test.exclusions=**/*test.go'
+//         }
+//       }
 
       stage('Build') {
         _sh 'mkdir -p release'
