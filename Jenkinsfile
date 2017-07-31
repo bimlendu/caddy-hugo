@@ -109,6 +109,8 @@ done
             sendSMS('msg_provider', auth_id, srcPhone, destPhone, incName)
       
             codeDeploy(deployAppName, deployGroupName, deployBucket, 'caddy-' + buildNumber + '.zip', 15)
+
+            input 'Do you approve deployment?'
             
             String postDeployMsg = 'Deployment Completed. ' + deployAppName + ' : ' + buildNumber
             
